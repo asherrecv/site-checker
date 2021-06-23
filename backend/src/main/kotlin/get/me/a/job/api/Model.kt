@@ -1,9 +1,9 @@
-package com.example
+package get.me.a.job.api
 
 
 interface SiteFields {
     val url: String
-    val status: String
+    val up: Boolean
 }
 
 interface SiteRow : SiteFields {

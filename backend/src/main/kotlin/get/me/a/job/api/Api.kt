@@ -1,8 +1,6 @@
-package com.example.api
+package get.me.a.job.api
 
-import com.example.Dao
-import com.example.SiteFields
-import com.example.SiteRow
+import get.me.a.job.dao.Dao
 import org.http4k.core.Body
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.DELETE

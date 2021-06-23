@@ -1,6 +1,5 @@
-package com.example.dao
+package get.me.a.job.dao
 
-import com.example.Dao
 import com.example.SiteFields
 import com.example.SiteRow
 import com.example.SiteRowImpl
