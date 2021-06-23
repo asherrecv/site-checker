@@ -1,0 +1,16 @@
+<h2>Edit site-monitor</h2>
+
+<form *ngIf="site; else noSite">
+  <div class="form-group">
+    <label for="siteUrl">URL</label>
+    <input type="text" id="siteUrl" class="form-control" [formControl]="url">
+  </div>
+  <div class="form-group">
+    <button (click)="update()" class="btn btn-primary">Update</button>
+    <button class="btn btn-light" [routerLink]="['/sites']">Cancel</button>
+  </div>
+</form>
+
+<ng-template #noSite>
+  <h2> No site was found for id '{{ id }}' </h2>
+</ng-template>

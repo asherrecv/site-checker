@@ -1,0 +1,28 @@
+<button class="btn btn-success" [routerLink]="['/sites/add']">Add site</button>
+<div *ngIf="sites && sites.length > 0; else noSites">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Url</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let site of sites">
+    <tr>
+      <td>{{ site.id }}</td>
+      <td>{{ site.url }}</td>
+      <td>{{ site.status }}</td>
+      <td>
+        <button class="btn btn-light" (click)="delete(site.id)"><i class="far fa-trash-alt"></i></button>
+        <button class="btn btn-light" [routerLink]="['/sites/', site.id, 'edit']"><i class="far fa-edit"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noSites>
+  <h2> The service is not monitoring any sites at the moment. Add a site to start monitoring! </h2>
+</ng-template>

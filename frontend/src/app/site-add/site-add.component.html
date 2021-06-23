@@ -1,0 +1,11 @@
+<form>
+  <div class="form-group">
+    <label for="siteUrl">URL</label>
+    <input type="text" id="siteUrl" class="form-control" [formControl]="url">
+  </div>
+
+  <div class="form-group">
+    <button (click)="create()" class="btn btn-primary">Create</button>
+    <button class="btn btn-light" [routerLink]="['/sites']">Back</button>
+  </div>
+</form>
