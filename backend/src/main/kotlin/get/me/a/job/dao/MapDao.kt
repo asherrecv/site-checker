@@ -1,8 +1,8 @@
 package get.me.a.job.dao
 
-import com.example.SiteFields
-import com.example.SiteRow
-import com.example.SiteRowImpl
+import get.me.a.job.api.SiteFields
+import get.me.a.job.api.SiteRow
+import get.me.a.job.api.SiteRowImpl
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 

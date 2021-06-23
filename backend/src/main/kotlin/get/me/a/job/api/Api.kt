@@ -57,7 +57,3 @@ fun siteApi(dao: Dao): HttpHandler {
         },
     )
 }
-
-fun main() {
-
-}

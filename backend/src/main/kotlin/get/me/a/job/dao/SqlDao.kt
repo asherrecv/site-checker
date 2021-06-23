@@ -1,8 +1,8 @@
 package get.me.a.job.dao
 
-import com.example.SiteFields
-import com.example.SiteRow
-import com.example.SiteRowImpl
+import get.me.a.job.api.SiteFields
+import get.me.a.job.api.SiteRow
+import get.me.a.job.api.SiteRowImpl
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
