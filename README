@@ -1,0 +1,10 @@
+Zum starten des Site-Checkers das Script ./build_and_run ausführen. Die App ist dann unter
+
+ http://localhost:4200
+
+erreichbar.
+
+Getestet mit:
+
+ - Docker version 19.03.12, build v19.03.12
+ - docker-compose version 1.28.6, build unknown
