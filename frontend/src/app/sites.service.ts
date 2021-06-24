@@ -10,7 +10,7 @@ export class SitesService {
 
   constructor(private http: HttpClient) { }
 
-  private prefix = "http://localhost:9000"
+  private prefix = "http://backend:9000"
 
   getSites(): Observable<Site[]> {
     return this.http.get<Site[]>(`${this.prefix}/sites`)
