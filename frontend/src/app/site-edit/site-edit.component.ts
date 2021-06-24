@@ -22,16 +22,15 @@ export class SiteEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id')!
-      var site = this.service.getSite(+this.id)
-      if (site) {
+      this.service.getSite(+this.id).subscribe(site => {
         this.site = site
         this.url = new FormControl(site.url)
-      }
+      })
     })
   }
 
   update(): void {
-    this.service.updateSite( {id: +this.id, url: this.url.value, status: "edited" })
+    this.service.updateSite(+this.id, this.url.value)
     this.router.navigate(['/sites'])
   }
 

@@ -18,8 +18,9 @@ export class SiteAddComponent implements OnInit {
   }
 
   create(): void {
-    this.service.addSite(this.url.value)
-    this.router.navigate(["/sites"])
+    this.service.addSite(this.url.value).subscribe(x => {
+      this.router.navigate(["/sites"])
+    })
   }
 
 }

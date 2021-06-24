@@ -13,7 +13,7 @@
     <tr>
       <td>{{ site.id }}</td>
       <td>{{ site.url }}</td>
-      <td>{{ site.status }}</td>
+      <td>{{ site.up }}</td>
       <td>
         <button class="btn btn-light" (click)="delete(site.id)"><i class="far fa-trash-alt"></i></button>
         <button class="btn btn-light" [routerLink]="['/sites/', site.id, 'edit']"><i class="far fa-edit"></i></button>

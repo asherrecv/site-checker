@@ -12,13 +12,10 @@ const routes: Routes = [
   {
     path: 'sites/add',
     component: SiteAddComponent,
-//  data: {title: 'Add new task'}
   },
   {
-    // display the form to add a new task
     path: 'sites/:id/edit',
     component: SiteEditComponent,
- //   data: {title: 'Task edition'}
   },
   { path: '',
     redirectTo: '/sites',

@@ -1,27 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SitesService } from "../sites.service";
 import { Site } from "../site"
+import { Subscription, timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sites',
   templateUrl: './sites.component.html',
   styleUrls: ['./sites.component.css']
 })
-export class SitesComponent implements OnInit {
+export class SitesComponent implements OnInit, OnDestroy {
 
-  sites: Site[];
+  sites: Site[] = [];
+
+  subscription: Subscription | null = null
 
   constructor(private service: SitesService) {
-    this.sites = this.service.getSites()
+     this.service.getSites().subscribe(resp => {
+        this.sites = resp
+      })
   }
 
   ngOnInit(): void {
-    this.sites = this.service.getSites()
+    this.subscription = timer(0, 5000)
+      .pipe(
+        switchMap(() => this.service.getSites())
+      ).subscribe(resp => this.sites = resp);
+
+    this.service.getSites().subscribe(resp => {
+      this.sites = resp
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription!.unsubscribe();
   }
 
   delete(id: number): void {
-    this.service.deleteSite(id);
-    this.sites = this.service.getSites();
+    this.service.deleteSite(id).subscribe(x => {
+      this.service.getSites().subscribe(resp => {
+        this.sites = resp
+      })
+    })
   }
 
 }

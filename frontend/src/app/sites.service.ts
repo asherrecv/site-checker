@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Site } from './site'
 
 @Injectable({
@@ -6,38 +8,27 @@ import { Site } from './site'
 })
 export class SitesService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  sites: Site[] = [
-    {id: 0, url: "aooble", status: "false"},
-    {id: 1, url: "booble", status: "false"},
-    {id: 2, url: "booble", status: "false"}
-  ]
+  private prefix = "http://localhost:9000"
 
-  getSites(): Site[] {
-    return this.sites
+  getSites(): Observable<Site[]> {
+    return this.http.get<Site[]>(`${this.prefix}/sites`)
   }
 
-  getSite(id: number): Site | undefined {
-    return this.sites.find(site => { return site.id == id} )
+  getSite(id: number): Observable<Site> {
+    return this.http.get<Site>(`${this.prefix}/sites/${id}`)
   }
 
-  addSite(newUrl: string) {
-    var newId = Math.max(...this.sites.map(site => {return site.id})) + 1
-    this.sites = [...this.sites, {id: newId, url: newUrl, status: "added"} ]
+  addSite(newUrl: string): Observable<unknown> {
+    return this.http.post(`${this.prefix}/sites/`, { url: newUrl })
   }
 
-  deleteSite(id: number) {
-    this.sites = this.sites.filter(site => { return site.id != id })
+  deleteSite(id: number): Observable<unknown> {
+    return this.http.delete(`${this.prefix}/sites/${id}`)
   }
 
-  updateSite(updatedSite: Site) {
-    this.sites = this.sites.map(site => {
-      if (updatedSite.id != site.id) {
-        return site
-      } else {
-        return updatedSite
-      }
-    })
+  updateSite(id: number, newUrl: string): Observable<unknown> {
+    return this.http.put(`${this.prefix}/sites/`, { url: newUrl })
   }
 }
