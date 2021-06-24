@@ -9,6 +9,7 @@ interface Dao {
     fun addSite(site: SiteFields)
     fun updateSite(id: Int, site: SiteFields): Boolean
     fun deleteSite(id: Int): Boolean
+    fun updateState(id:Int, up: Boolean)
 }
 
 

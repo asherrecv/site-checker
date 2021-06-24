@@ -2,39 +2,47 @@ package get.me.a.job.dao
 
 import get.me.a.job.api.SiteFields
 import get.me.a.job.api.SiteRow
-import get.me.a.job.api.SiteRowImpl
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
+
+private data class SiteState(
+    val site: SiteFields,
+    val up: Boolean
+)
 
 class MapDao : Dao {
 
     private val nextId = AtomicInteger(0)
-    private val map = ConcurrentHashMap<Int, SiteFields>()
+    private val map = ConcurrentHashMap<Int, SiteState>()
 
     override fun getSites(): List<SiteRow> {
-        return map.map { (id, site) -> SiteRowImpl(id, site.url, site.up) }
+        return map.map { (id, site) -> SiteRow(id, site.site.url, site.up) }
     }
 
     override fun addSite(site: SiteFields) {
-        map[nextId.incrementAndGet()] = site
+        map[nextId.incrementAndGet()] = SiteState(site, up = false)
     }
 
     override fun updateSite(id: Int, site: SiteFields): Boolean {
-        return if (!map.contains(id)) {
+        return if (!map.containsKey(id)) {
             false
         } else {
-            map[id] = site
+            map[id] = SiteState(site, up = false)
             true
         }
-
     }
 
     override fun deleteSite(id: Int): Boolean {
-        return if (!map.contains(id)) {
+        return if (!map.containsKey(id)) {
             false
         } else {
             map.remove(id)
             true
         }
+    }
+
+    override fun updateState(id: Int, up: Boolean) {
+        val oldValue = map[id] ?: return
+        map[id] = oldValue.copy(up = up)
     }
 }

@@ -2,7 +2,6 @@ package get.me.a.job.dao
 
 import get.me.a.job.api.SiteFields
 import get.me.a.job.api.SiteRow
-import get.me.a.job.api.SiteRowImpl
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -24,7 +23,7 @@ class SqlDao : Dao {
     override fun getSites(): List<SiteRow> {
         return transaction {
             SiteTable.selectAll().map { row ->
-                SiteRowImpl(
+                SiteRow(
                     id = row[SiteTable.id],
                     url = row[SiteTable.url],
                     up = row[SiteTable.up]
@@ -37,7 +36,6 @@ class SqlDao : Dao {
         transaction {
             SiteTable.insert { row ->
                 row[url] = site.url
-                row[up] = site.up
             }
         }
     }
@@ -46,7 +44,6 @@ class SqlDao : Dao {
         val rowsAffected = transaction {
             SiteTable.update(where = { SiteTable.id eq id }) { row ->
                 row[url] = site.url
-                row[up] = site.up
             }
         }
         return (rowsAffected > 0)
@@ -57,6 +54,14 @@ class SqlDao : Dao {
             SiteTable.deleteWhere { SiteTable.id eq id }
         }
         return (rowsAffected > 0)
+    }
+
+    override fun updateState(id: Int, newUp: Boolean) {
+        transaction {
+            SiteTable.update(where = { SiteTable.id eq id }) { row ->
+                row[up] = newUp
+            }
+        }
     }
 
 }

@@ -1,22 +1,11 @@
 package get.me.a.job.api
 
-
-interface SiteFields {
+data class SiteFields(
     val url: String
+)
+
+data class SiteRow(
+    val id: Int,
+    val url: String,
     val up: Boolean
-}
-
-interface SiteRow : SiteFields {
-    val id: Int
-}
-
-data class SiteRowImpl(
-    override val id: Int,
-    override val url: String,
-    override val up: Boolean
-) : SiteRow
-
-data class SiteFieldsImpl(
-    override val url: String,
-    override val up: Boolean
-) : SiteFields
+)
