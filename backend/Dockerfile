@@ -20,3 +20,4 @@ RUN mkdir /app
 
 COPY --from=build /app/build/libs/app-1.0-SNAPSHOT-all.jar /app.jar
 CMD ["java", "-jar", "/app.jar"]
+EXPOSE 9000
