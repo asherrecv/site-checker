@@ -5,6 +5,7 @@ import get.me.a.job.api.SiteRow
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -37,6 +38,20 @@ class SqlDao : Dao {
             SiteTable.insert { row ->
                 row[url] = site.url
             }
+        }
+    }
+
+    override fun getSite(id: Int): SiteRow? {
+        return transaction {
+            SiteTable.select { SiteTable.id eq id }
+                .singleOrNull()
+                ?.let { row ->
+                    SiteRow(
+                        id = row[SiteTable.id],
+                        url = row[SiteTable.url],
+                        up = row[SiteTable.up]
+                    )
+                }
         }
     }
 

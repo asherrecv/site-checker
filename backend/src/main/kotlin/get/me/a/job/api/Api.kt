@@ -35,6 +35,16 @@ fun siteApi(dao: Dao): HttpHandler {
             val rows = dao.getSites()
             Response(OK).with(Lenses.sitesRows of rows)
         },
+        "/sites/{id}" bind GET to {request ->
+            val id = Lenses.id(request)
+            LOGGER.info { "GET /sites/$id" }
+            val row = dao.getSite(id)
+            if (row != null) {
+                Response(OK).with(Lenses.siteRow of row)
+            } else {
+                Response(NOT_FOUND)
+            }
+        },
         "/sites/" bind POST to { request ->
             LOGGER.info { "POST /sites" }
             val site = Lenses.siteFields.extract(request)

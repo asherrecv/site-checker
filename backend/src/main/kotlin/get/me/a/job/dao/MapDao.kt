@@ -19,6 +19,10 @@ class MapDao : Dao {
         return map.map { (id, site) -> SiteRow(id, site.site.url, site.up) }
     }
 
+    override fun getSite(id: Int): SiteRow? {
+        return map[id]?.let { state -> SiteRow(id, state.site.url, state.up) }
+    }
+
     override fun addSite(site: SiteFields) {
         map[nextId.incrementAndGet()] = SiteState(site, up = false)
     }
