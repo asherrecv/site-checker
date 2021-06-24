@@ -29,6 +29,6 @@ export class SitesService {
   }
 
   updateSite(id: number, newUrl: string): Observable<unknown> {
-    return this.http.put(`${this.prefix}/sites/`, { url: newUrl })
+    return this.http.put(`${this.prefix}/sites/${id}`, { url: newUrl })
   }
 }
