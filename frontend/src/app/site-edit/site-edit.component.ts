@@ -30,8 +30,10 @@ export class SiteEditComponent implements OnInit {
   }
 
   update(): void {
-    this.service.updateSite(+this.id, this.url.value)
-    this.router.navigate(['/sites'])
+    this.service.updateSite(+this.id, this.url.value).subscribe(x => {
+      this.router.navigate(['/sites'])
+    })
+
   }
 
 }
